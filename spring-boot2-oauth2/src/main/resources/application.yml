@@ -1,0 +1,42 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: OAuth2 Social Login
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;instance=SQLEXPRESS;databaseName=OAuth2Login
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: SA
+    password: YourStrong!Passw0rd
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 2305658253055576
+            client-secret: 82c8ef51b44072b7f2758170df2b8e3b
+            redirectUriTemplate: "{baseUrl}/oauth2/callback/{registrationId}"
+            sscope:
+            - email
+            - public_profile
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationTime: 864000000
+  oauth2:
+    authorizedRedirectUris:
+    - http://localhost:8081/user/me
+
+logging:
+  level:
+    org.springframework.security.oauth2: debug
+    com:tkd.oauth2: debug
+    com.progress.appserv.services.security: debug
